@@ -1,22 +1,21 @@
 const { Sequelize, Op } = require('sequelize');
+const validator = require('validator');
 const Produtos = require('../models/produtos');
 const Usuarios = require('../models/usuarios');
 const helpers = require('../helpers/helpers');
 const dbHelpers = require('../helpers/db_helpers');
 const strings = require('../helpers/strings');
-const validator = require('validator');
 
 function getFiltro(query) {
   const filtro = {
     where: {
       ativo: 1,
     },
+    limit: 20,
   };
 
   if (query.nome_produto) {
-    filtro.where['nome_produto'] = {
-      [Op.like]: `%${query.nome_produto}%`,
-    };
+    filtro.where['nome_produto'] = { [Op.like]: `%${query.nome_produto}%` };
   }
 
   if (query.rating) {
@@ -28,9 +27,7 @@ function getFiltro(query) {
   }
 
   if (query.preco) {
-    filtro.where['preco'] = {
-      [Op.eq]: query.preco,
-    };
+    filtro.where['preco'] = { [Op.eq]: query.preco };
   }
 
   return filtro;
@@ -41,7 +38,7 @@ module.exports = {
     try {
       const { query } = req;
 
-      const sequelizeInstance = helpers.getSequelize(query.nomedb);
+      const sequelizeInstance = helpers.getSequelize();
 
       const products = await Produtos(sequelizeInstance, strings.VIEW_PRODUTOS).findAll(
         getFiltro(query),
@@ -55,9 +52,9 @@ module.exports = {
 
   getById: async (req, res) => {
     try {
-      const { query, params } = req;
+      const { params } = req;
 
-      const sequelizeInstance = helpers.getSequelize(query.nomedb);
+      const sequelizeInstance = helpers.getSequelize();
 
       const product = await Produtos(sequelizeInstance, strings.VIEW_PRODUTOS).findOne({
         where: {
@@ -73,9 +70,9 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      const { query, body } = req;
+      const { body } = req;
 
-      const sequelizeInstance = helpers.getSequelize(query.nomedb);
+      const sequelizeInstance = helpers.getSequelize();
 
       if (!validator.isLength(body.nome_produto, { min: 8, max: 40 })) {
         return res.status(400).send({ message: 'O nome do produto é inválido' });
@@ -106,9 +103,9 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      const { params, query, body } = req;
+      const { params, body } = req;
 
-      const sequelizeInstance = helpers.getSequelize(query.nomedb);
+      const sequelizeInstance = helpers.getSequelize();
 
       const product = await Produtos(sequelizeInstance, strings.VIEW_PRODUTOS).findOne({
         where: {
@@ -145,9 +142,9 @@ module.exports = {
 
   delete: async (req, res) => {
     try {
-      const { params, query, body } = req;
+      const { params, body } = req;
 
-      const sequelizeInstance = helpers.getSequelize(query.nomedb);
+      const sequelizeInstance = helpers.getSequelize();
 
       const user = await Usuarios(sequelizeInstance, strings.VIEW_USUARIOS).findOne({
         where: {
@@ -157,7 +154,7 @@ module.exports = {
 
       if (user.tipo_conta !== strings.ADMIN) {
         return res.status(400).send({
-          error: `Apenas administradores e operadores com permissão pode ativar/inativar produtos`,
+          error: `Apenas administradores com permissão pode ativar/inativar produtos`,
         });
       }
 

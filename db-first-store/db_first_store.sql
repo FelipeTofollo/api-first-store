@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 8.0.11)
-# Date: 2023-02-01 21:48:23
+# Date: 2023-03-10 20:52:49
 # Generator: MySQL-Front 6.1  (Build 1.26)
 
 
@@ -19,7 +19,7 @@ CREATE TABLE `tipo_usuario` (
 # Data for table "tipo_usuario"
 #
 
-INSERT INTO `tipo_usuario` VALUES (1,'FREE'),(2,'VIP'),(3,'ADMIN');
+INSERT INTO `tipo_usuario` VALUES (1,'FREE'),(2,'VIP'),(3,'ADMIN'),(4,'OPERADORES');
 
 #
 # Structure for table "usuarios"
@@ -36,19 +36,21 @@ CREATE TABLE `usuarios` (
   `telefone` varchar(255) DEFAULT NULL,
   `endereco` varchar(255) DEFAULT NULL,
   `endereco2` varchar(255) DEFAULT NULL,
+  `cep` varchar(10) DEFAULT NULL,
   `id_tipo_usuario` int(2) DEFAULT '1',
   `ativo` tinyint(1) DEFAULT '1',
+  `usuario_logado` tinyint(1) DEFAULT '0',
   `criado_em` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `alterado_em` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 #
 # Data for table "usuarios"
 #
 
-INSERT INTO `usuarios` VALUES (1,'Julio','111.222.333-44','$2b$12$YS7scSb1Vyn5KPJfNcLaTO4tegbWGrRQ.i/aDEc8DrSwzSBZB9k06','juliocesar@gmail.com','05/12/1990','(62)9-9580-7060','Avenida T-63, nº 1, Qd. 1, Lt. 1','Edífico Agulhas Negras',1,1,'2023-01-19 21:40:44','2023-01-26 19:33:42'),(2,'Leo','444.555.666-77','$2b$12$fvVpZva715Tqc7KvV0wfc.JlfC1asLQRJiG37suDRQlBfBQieBOcO','leonidio@gmail.com','05/12/1990','(62)9-9580-7060','Avenida T-63, nº 1, Qd. 1, Lt. 1','Edífico Agulhas Negras',3,1,'2023-01-23 20:45:19',NULL),(3,'João Otávio','666.777.888-99','$2b$12$4LYPDT3mBmKYuP2A7pHKsuS8bYYl3E8CoumKRip6zInnSs1ruuGg2','otaviodev@gmail.com','05/12/1990','(62)9-9580-7060','Avenida T-63, nº 1, Qd. 1, Lt. 1','Edífico Agulhas Negras',3,1,'2023-01-23 20:45:40',NULL),(4,'Jean','999.888.333-44','$2b$12$kZwCKz3eyYxUXYKBiptMjuEiChVkeXVRL.BDsNWVudY2H4pL/aDQ2','jean@gmail.com','05/12/1990','(62)9-9580-7060','Avenida T-63, nº 1, Qd. 1, Lt. 1','Edífico Agulhas Negras',2,1,'2023-01-25 20:12:46',NULL),(8,'Jean','999.444.333-44','$2b$12$vgESXogCdeGFKblAzZ9YdeC8vGaoLGMZ0mHAtKizruqu0jOdqjAUa','123456@gmail.com','05/12/1990','(62)9-9580-7060','Avenida T-63, nº 1, Qd. 1, Lt. 1','Edífico Agulhas Negras',2,1,'2023-01-26 21:55:22',NULL),(11,'Jean','999.888.999-44','$2b$12$r3nlv.MV37evEJxjAaTGguoE152VjweNWUkG8k0K3tGKBBafkSFLi','12345@gmail.com','05/12/1990','(62)9-9580-7060','Avenida T-63, nº 1, Qd. 1, Lt. 1','Edífico Agulhas Negras',2,1,'2023-01-26 21:59:19',NULL);
+INSERT INTO `usuarios` VALUES (1,'Julio','111.222.333-44','$2b$12$YS7scSb1Vyn5KPJfNcLaTO4tegbWGrRQ.i/aDEc8DrSwzSBZB9k06','juliocesar@gmail.com','05/12/1990','(62)9-9988-7060','Avenida T-63, Edíficio Agulhas Negras, Bloco 1, Apto 1604','Setor Bueno','47813-238',1,1,1,'2023-01-19 21:40:44','2023-02-08 21:37:32'),(2,'Leo','444.555.666-77','$2b$12$fvVpZva715Tqc7KvV0wfc.JlfC1asLQRJiG37suDRQlBfBQieBOcO','leonidio@gmail.com','05/12/1990','(62)9-8880-7060','Rua Barão de Mauá, Qd. 32, Lt. 68','Setor Aeroporto','60510-175',3,1,0,'2023-01-23 20:45:19',NULL),(3,'João Otávio','666.777.888-99','$2b$12$4LYPDT3mBmKYuP2A7pHKsuS8bYYl3E8CoumKRip6zInnSs1ruuGg2','otaviodev@gmail.com','05/12/1990','(62)9-8562-7060','Avenida Brasil, nº 100, Qd. 10, Lt. 20','Setor Macaranã','29164-784',3,1,0,'2023-01-23 20:45:40',NULL),(4,'Jean','999.888.333-44','$2b$12$kZwCKz3eyYxUXYKBiptMjuEiChVkeXVRL.BDsNWVudY2H4pL/aDQ2','jean@gmail.com','05/12/1990','(62)9-8520-7060','Avenida Manoel Monteiro, nº 1, Qd. 1, Lt. 1','Setor Central',NULL,2,1,0,'2023-01-25 20:12:46',NULL);
 
 #
 # Structure for table "tipo_produtos"
@@ -60,22 +62,19 @@ CREATE TABLE `tipo_produtos` (
   `descricao` varchar(255) DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT '1',
   `criado_em` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `criado_por_id_usuario` int(11) DEFAULT NULL,
   `alterado_em` timestamp NULL DEFAULT NULL,
-  `alterado_por_id_usuario` int(11) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  KEY `criado_por_id_usuario` (`criado_por_id_usuario`),
-  KEY `alterado_por_id_usuario` (`alterado_por_id_usuario`),
-  CONSTRAINT `tipo_produto_ibfk_1` FOREIGN KEY (`criado_por_id_usuario`) REFERENCES `usuarios` (`id`),
-  CONSTRAINT `tipo_produto_ibfk_2` FOREIGN KEY (`alterado_por_id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `id_usuario` (`id_usuario`),
+  CONSTRAINT `tipo_produtos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 #
 # Data for table "tipo_produtos"
 #
 
-INSERT INTO `tipo_produtos` VALUES (1,'MMORPG',1,'2023-01-19 21:37:17',3,'2023-01-19 21:42:28',1),(2,'Aventura',1,'2023-01-19 21:37:31',2,'2023-01-19 21:45:01',NULL),(3,'Esportes',1,'2023-01-19 21:37:37',2,NULL,NULL),(4,'Campanha',1,'2023-01-19 21:37:49',1,NULL,NULL),(5,'Teste Editado',1,'2023-01-27 21:31:51',NULL,'2023-01-27 21:31:51',NULL),(6,'Teste Editado',1,'2023-01-27 21:32:08',NULL,'2023-01-27 21:32:08',NULL),(7,'Teste Editado',1,'2023-01-27 21:32:48',NULL,'2023-01-27 21:32:48',NULL),(8,'Teste Editado',1,'2023-01-27 21:32:56',NULL,'2023-01-27 21:32:56',NULL),(9,'Teste Editado',1,'2023-01-27 21:33:23',NULL,'2023-01-27 21:33:23',NULL),(10,'Teste Editado',1,'2023-01-31 21:17:32',NULL,'2023-01-31 21:17:32',NULL),(11,'Teste Editado',1,'2023-01-31 21:46:22',NULL,'2023-01-31 21:46:22',NULL),(12,'Teste Editado',1,'2023-01-31 21:46:40',NULL,'2023-01-31 21:46:40',NULL),(13,'Teste Editado',0,'2023-01-31 21:57:46',NULL,'2023-01-31 21:57:46',NULL),(14,'Teste Editado',0,'2023-01-31 21:58:51',NULL,'2023-01-31 21:58:51',NULL),(15,'Teste Editado',1,'2023-01-31 21:59:14',NULL,'2023-01-31 21:59:14',NULL),(16,'Teste Editado',1,'2023-01-31 22:01:18',NULL,'2023-01-31 22:01:18',NULL),(17,'Teste Editado',1,'2023-01-31 22:04:28',NULL,'2023-01-31 22:04:28',NULL),(18,'Teste Editado',1,'2023-01-31 22:06:57',NULL,'2023-01-31 22:06:58',NULL),(19,'Teste Editado',1,'2023-01-31 22:08:52',NULL,'2023-01-31 22:08:52',NULL),(20,'Teste Editado',1,'2023-01-31 22:12:20',NULL,'2023-01-31 22:12:20',NULL),(21,'Teste Editado',1,'2023-02-01 20:50:02',NULL,'2023-02-01 20:50:02',NULL),(22,'Teste Editado',1,'2023-02-01 21:43:28',NULL,'2023-02-01 21:43:28',NULL);
+INSERT INTO `tipo_produtos` VALUES (1,'Campanha',1,'2023-02-17 21:42:54','2023-02-17 21:43:47',1),(2,'RPG',1,'2023-02-17 21:42:58','2023-02-17 21:43:52',3),(3,'Open World',1,'2023-02-17 21:43:02','2023-02-17 21:43:55',3),(4,'Aventura',1,'2023-02-17 21:43:08','2023-02-17 21:43:57',3),(5,'Ação',1,'2023-02-17 21:43:12','2023-02-17 21:44:01',2),(6,'Puzzle',1,'2023-02-17 21:43:20','2023-02-17 21:44:12',4),(7,'Teste Editado',1,'2023-02-27 18:25:22','2023-02-27 18:25:22',3);
 
 #
 # Structure for table "produtos"
@@ -101,13 +100,13 @@ CREATE TABLE `produtos` (
   KEY `id_tipo_produto` (`id_tipo_produto`),
   CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `produtos_ibfk_2` FOREIGN KEY (`id_tipo_produto`) REFERENCES `tipo_produtos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 #
 # Data for table "produtos"
 #
 
-INSERT INTO `produtos` VALUES (1,'God of War 5','Novo lançamento!','R$199,90',10,10,1,NULL,4,'2023-01-19 21:48:43',NULL,1),(2,'GTA 7 - Rio de Janeiro','ROCKSTAR GAMES BRASIL!','R$299,90',3,8,1,NULL,2,'2023-01-19 21:48:43',NULL,2),(3,'GTA 7 - Rio de Janeiro','ROCKSTAR GAMES BRASIL!','R$699,90',10,6,1,NULL,2,'2023-01-19 21:48:43','2023-01-28 18:15:17',1),(5,'Elden Ring','Lançado em 2022, ganhador do premio XBOX','R$399,90',5,10,1,NULL,3,'2023-01-25 21:37:38',NULL,NULL),(6,'God of War - Ragnarok','Lançado em 2022, ganhador do premio XBOX','R$279,90',15,10,1,NULL,3,'2023-01-25 21:38:18',NULL,NULL),(13,'GTA 7 - Rio de Janeiro','ROCKSTAR GAMES BRASIL!','R$699,90',10,6,1,NULL,2,'2023-01-27 21:33:23','2023-01-31 21:48:00',2),(14,'God of War - Ragnarok','Lançado em 2022, ganhador do premio XBOX','R$279,90',15,10,1,'https://pt.wikipedia.org/wiki/Node.js#/media/Ficheiro:Node.js_logo.svg',3,'2023-01-28 18:18:11',NULL,3),(15,'God of War - Ragnarok','Lançado em 2022, ganhador do premio XBOX','R$279,90',15,10,1,'https://pt.wikipedia.org/wiki/Node.js#/media/Ficheiro:Node.js_logo.svg',3,'2023-01-28 18:18:21',NULL,3),(16,'God of War - Ragnarok','Lançado em 2022, ganhador do premio XBOX','R$279,90',1,10,1,'https://pt.wikipedia.org/wiki/Node.js#/media/Ficheiro:Node.js_logo.svg',3,'2023-01-28 18:19:46','2023-01-28 18:44:43',2),(17,'God of War - Ragnarok','Lançado em 2022, ganhador do premio XBOX','R$279,90',1,10,1,'https://pt.wikipedia.org/wiki/Node.js#/media/Ficheiro:Node.js_logo.svg',3,'2023-01-28 19:27:25',NULL,3);
+INSERT INTO `produtos` VALUES (1,'God of War 5','Novo lançamento!','R$179,90',3,10,1,'OneDrive/prod_image/prod_1.jpg',1,'2023-01-19 21:48:43',NULL,1),(2,'GTA 7 - Rio de Janeiro','ROCKSTAR GAMES BRASIL!','R$299,90',15,9,1,'OneDrive/prod_image/prod_2.jpg',3,'2023-01-19 21:48:43',NULL,2),(3,'Assassins Creed - Odyssey','Ubisoft','R$199,90',5,7,1,'OneDrive/prod_image/prod_3.jpg',3,'2023-01-19 21:48:43','2023-03-10 20:34:33',2),(4,'God of War - Ragnarok','Descrição Teste','R$279,90',1,8,1,'OneDrive/prod_image/prod_4.jpg',1,'2023-01-28 18:19:46','2023-01-28 18:44:43',2),(5,'Elden Ring','Lançado em 2022, ganhador do premio XBOX','R$399,90',4,9,1,'OneDrive/prod_image/prod_5.jpg',2,'2023-01-25 21:37:38',NULL,3),(6,'Dark Souls 3','','R$379,90',7,9,0,'OneDrive/prod_image/prod_6.jpg',4,'2023-01-25 21:38:18',NULL,2),(7,'God of War - Ragnarok','Lançado em 2022, ganhador do premio XBOX','R$279,90',1,10,1,'https://pt.wikipedia.org/wiki/Node.js#/media/Ficheiro:Node.js_logo.svg',3,'2023-03-10 20:09:53',NULL,3);
 
 #
 # Structure for table "carrinhos"
@@ -118,6 +117,7 @@ CREATE TABLE `carrinhos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_produtos` varchar(255) DEFAULT NULL,
   `finalizado` tinyint(1) DEFAULT '0',
+  `ativo` tinyint(1) DEFAULT '1',
   `id_usuario` int(11) NOT NULL,
   `criado_em` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `alterado_em` timestamp NULL DEFAULT NULL,
@@ -125,13 +125,13 @@ CREATE TABLE `carrinhos` (
   UNIQUE KEY `id` (`id`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `carrinhos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 #
 # Data for table "carrinhos"
 #
 
-INSERT INTO `carrinhos` VALUES (1,'2, 3, 4, 5',1,1,'2023-01-24 20:15:54','2023-01-24 21:53:49'),(2,'2, 3, 4, 5',1,1,'2023-01-24 21:13:20','2023-01-24 21:53:49'),(3,'2, 3, 4, 5',1,1,'2023-01-24 21:13:35','2023-01-24 21:53:49'),(4,'2, 3, 4, 5',1,1,'2023-01-24 21:14:37','2023-01-24 21:53:49'),(5,'2, 3, 4, 5',1,1,'2023-01-24 21:15:51','2023-01-24 21:53:49'),(6,'4',0,1,'2023-01-24 21:53:49',NULL),(7,'3, 3, 4, 6, 1',0,4,'2023-01-25 21:38:58',NULL);
+INSERT INTO `carrinhos` VALUES (1,'2, 3, 4, 5',1,1,1,'2023-01-24 20:15:54','2023-01-24 21:53:49'),(2,'2, 3, 4, 5',1,1,1,'2023-01-24 21:13:20','2023-01-24 21:53:49'),(3,'2, 3, 4, 5',1,1,1,'2023-01-24 21:13:35','2023-01-24 21:53:49'),(4,'2, 3, 4, 5',1,1,1,'2023-01-24 21:14:37','2023-01-24 21:53:49'),(5,'2, 3, 4, 5',1,1,1,'2023-01-24 21:15:51','2023-01-24 21:53:49'),(6,'4',0,0,1,'2023-01-24 21:53:49',NULL),(7,'3, 3, 4, 6, 1',1,0,4,'2023-01-25 21:38:58','2023-03-02 19:41:21'),(8,'3, 3, 4, 6, 1',1,0,4,'2023-02-03 21:43:13','2023-03-02 19:41:21'),(9,'3, 3, 4, 6, 1',1,0,4,'2023-02-06 19:59:02','2023-03-02 19:41:21'),(10,'6, 1, 5, 7',1,0,2,'2023-02-06 21:18:30','2023-02-06 21:21:15'),(11,'6, 1, 5, 7',1,0,2,'2023-02-06 21:18:33','2023-02-06 21:21:15'),(12,'6, 1, 5, 7',1,0,2,'2023-02-06 21:20:42','2023-02-06 21:21:15'),(13,'1, 2, 3',1,1,2,'2023-02-06 21:21:15','2023-02-06 21:25:39'),(14,'1, 2, 3',0,0,2,'2023-02-07 21:45:17','2023-02-07 21:48:17'),(15,'3, 3, 4, 6, 1',1,0,4,'2023-02-13 21:36:47','2023-03-02 19:41:21'),(16,'3, 3, 4, 6, 1',1,0,4,'2023-02-13 21:42:52','2023-03-02 19:41:21'),(17,'3, 3, 4, 6, 1',1,0,4,'2023-03-02 19:39:22','2023-03-02 19:41:21'),(18,'3, 4, 4',0,1,4,'2023-03-02 19:41:22','2023-03-02 19:43:22');
 
 #
 # View "view_carrinhos"
@@ -146,6 +146,7 @@ CREATE
     `carrinhos`.`id`,
     `carrinhos`.`id_produtos`,
     `carrinhos`.`finalizado`,
+    `carrinhos`.`ativo`,
     `carrinhos`.`id_usuario`,
     `usuarios`.`nome`,
     `carrinhos`.`criado_em`,
@@ -202,6 +203,7 @@ CREATE
     `usuarios`.`telefone`,
     `usuarios`.`endereco`,
     `usuarios`.`endereco2`,
+    `usuarios`.`cep`,
     `usuarios`.`id_tipo_usuario`,
     `tipo_usuario`.`tipo_conta`,
     `usuarios`.`ativo`,

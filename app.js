@@ -1,6 +1,11 @@
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
+const { config } = require('dotenv');
+
+config();
+
+const checkAuth = require('./api/middlewares/checkauth');
 
 const produtosRoutes = require('./api/routes/produtos');
 const usuariosRoutes = require('./api/routes/usuarios');
@@ -10,17 +15,22 @@ const carrinhosRoutes = require('./api/routes/carrinhos');
 const buscarCepRoutes = require('./api/routes/buscar_cep');
 
 const app = express();
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json());
 app.use(morgan('dev'));
 
 const httpServer = http.createServer(app);
 
-// Comentar esta linha para realizar testes.
 httpServer.listen(13700);
 
+/**
+ * Adiciona os headers necessários para a requisição.
+ */
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+  );
   if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     return res.status(200).json({});
@@ -28,18 +38,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  if (!req.query.nomedb) {
-    const error = Error('Banco de dados não encontrado.');
-    error.status = 400;
-    return res.status(error.status).send({ error: error.message });
-  }
-  next();
-});
-
+app.use('/login', loginRoutes);
 app.use('/produtos', produtosRoutes);
 app.use('/usuarios', usuariosRoutes);
-app.use('/login', loginRoutes);
 app.use('/tipo_produtos', tipoProdutoRoutes);
 app.use('/carrinhos', carrinhosRoutes);
 app.use('/buscar_cep', buscarCepRoutes);
