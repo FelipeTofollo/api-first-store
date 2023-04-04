@@ -48,4 +48,4 @@ João Otávio C. de Carvalho
 Feel free to use it as you want!
 
 ## Project status
-This project was used to teach students how to develop an restfulAPI for a web application!
+This project was used to teach students how to develop an restfulAPI for a web application!!
